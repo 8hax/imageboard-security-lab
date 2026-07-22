@@ -30,7 +30,7 @@ conceito, análise de impacto e a correção aplicada.
 | 02 | Ausência de security headers | A05:2021 – Security Misconfiguration | Média | Em andamento | [ver](docs/writeups/02-security-headers.md) |
 | 03 | Enumeração de usuários | A07:2021 – Identification and Authentication Failures | Média | Em andamento | [ver](docs/writeups/03-user-enumeration.md) |
 | 04 | Política de senha fraca | A07:2021 – Identification and Authentication Failures | Média | Em andamento | [ver](docs/writeups/04-password-policy.md) |
-| 05 | \`imageUrl\` sem validação (XSS / SSRF) | A03:2021 – Injection | Alta | Em andamento | [ver](docs/writeups/05-imageurl-xss-ssrf.md) |
+| 05 | `imageUrl` sem validação (XSS / SSRF) | A03:2021 – Injection | Alta | Em andamento | [ver](docs/writeups/05-imageurl-xss-ssrf.md) |
 | 06 | CSRF e hardening de cookie | A01:2021 – Broken Access Control | Média | Em andamento | [ver](docs/writeups/06-csrf-cookie-hardening.md) |
 
 ## Boas práticas já presentes na aplicação
@@ -73,17 +73,9 @@ impacto, correção e referências.
 
 ## Como executar
 
-<!-- Reaproveitar as instruções de README-projeto-original.md. -->
-
-\`\`\`bash
-# Backend
-cd backend
-# ...
-
-# Frontend
-cd frontend
-# ...
-\`\`\`
+As instruções completas estão em README-projeto-original.md. Em resumo, são dois
+serviços independentes (backend na porta 3001, frontend na 3000), cada um iniciado
+com `npm install` seguido de `npm run dev` no respectivo diretório.
 
 ## Referências
 
@@ -98,5 +90,5 @@ Boaz Duarte dos Passos Junior — [@8hax](https://github.com/8hax)
 ## Observação
 
 A aplicação base foi originalmente desenvolvida como projeto acadêmico; a documentação
-original está preservada em [\`README-projeto-original.md\`](README-projeto-original.md).
+original está preservada em [`README-projeto-original.md`](README-projeto-original.md).
 Este repositório é uma extensão com foco em segurança, para fins de estudo e portfólio.
