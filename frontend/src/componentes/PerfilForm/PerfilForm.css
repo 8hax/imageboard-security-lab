@@ -1,0 +1,79 @@
+/* Página "Minha conta" — cards no tema chan dark */
+.perfil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.perfil-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.perfil-card h2 {
+  font-size: 1.05rem;
+}
+
+.perfil-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.perfil-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.perfil-card label span {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.perfil-card input {
+  width: 100%;
+}
+
+.perfil-hint {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.perfil-card button {
+  align-self: flex-start;
+  padding: 0.5rem 1.3rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--green);
+  color: #16171a;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: filter 0.15s;
+}
+.perfil-card button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+.perfil-card button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Zona de perigo: excluir conta */
+.perfil-danger {
+  border-color: var(--red);
+}
+.perfil-danger h2 {
+  color: var(--red);
+}
+.perfil-card button.perfil-btn-danger {
+  background: var(--red);
+  color: #fff;
+}

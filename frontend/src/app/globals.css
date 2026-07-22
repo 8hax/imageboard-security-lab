@@ -1,0 +1,126 @@
+/* ============================================================
+   /tech/ — tema "chan moderno dark"
+   Design tokens + base. Denso, greentext, quote-links, dark.
+   ============================================================ */
+
+:root {
+  /* superfícies */
+  --bg: #16171a;          /* fundo da página */
+  --surface: #1f2125;     /* OP / banner / cards */
+  --surface-2: #24262b;   /* box de reply */
+  --surface-3: #2b2e34;   /* inputs, hover */
+  --border: #34373d;
+  --border-strong: #45484f;
+
+  /* texto */
+  --text: #dcdde1;
+  --text-dim: #969aa3;
+  --text-faint: #6b6f78;
+
+  /* acentos chan */
+  --green: #a5cf5b;       /* nome do autor / greentext */
+  --link: #6ea8e0;        /* quote-links >> e subjects */
+  --link-hover: #ff6b6b;  /* quotelink vira vermelho no hover (clássico) */
+  --red: #e0555f;         /* título do board */
+  --purple: #a684ff;      /* badge IA / acento */
+
+  --radius: 4px;
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* o conteúdo de página empurra o footer pro fim */
+body > main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Quote-link estilo chan: azul que vira vermelho no hover */
+.post-quote {
+  color: var(--link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.post-quote:hover {
+  color: var(--link-hover);
+}
+
+/* Greentext */
+.greentext {
+  color: var(--green);
+}
+
+/* ---- controles de formulário base (herdados por login/registro tb) ---- */
+input,
+textarea,
+select {
+  background: var(--surface-3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.6rem;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-faint);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---- scrollbar dark ---- */
+* {
+  scrollbar-color: var(--border-strong) var(--bg);
+}
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border: 3px solid var(--bg);
+  border-radius: 8px;
+}

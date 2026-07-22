@@ -1,0 +1,58 @@
+# .gitignore único da raiz do projeto (cobre backend e frontend).
+# Padrões SEM barra inicial valem recursivamente, então ignoram tanto
+# backend/<x> quanto frontend/<x>.
+
+# ── Dependências ─────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ── Variáveis de ambiente ────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Builds e artefatos gerados ───────────────────────────────
+dist/
+build/
+out/
+.next/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+backend/src/generated/
+
+# ── Banco de dados local (SQLite) ────────────────────────────
+*.db
+*.db-journal
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Deploy ───────────────────────────────────────────────────
+.vercel
+
+# ── Chaves / certificados ────────────────────────────────────
+*.pem
+
+# ── Arquivos de SO e editores ────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ── Arquivos de teste manual (curl, etc) ─────────────────────
+cookies.txt
+
+# ── Uso local do Claude (não versionar) ──────────────────────
+CLAUDE.md
+.claude/

@@ -1,0 +1,12 @@
+.thread-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.thread-list-empty {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}

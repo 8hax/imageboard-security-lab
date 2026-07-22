@@ -1,0 +1,71 @@
+.thread {
+  max-width: 62rem;
+  width: 100%;
+  /* alinhado à esquerda como o 4chan (sem centralizar) */
+  margin: 0;
+  padding: 1.25rem 1rem 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.voltar {
+  color: var(--link);
+  text-decoration: none;
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+.voltar:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Post de abertura (OP): subject azul + corpo, com acento vermelho */
+.threadHeader {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+}
+
+/* linha de meta fake "Anonymous ## OP" */
+.threadHeader::before {
+  content: "▸ Anonymous  ## OP";
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.threadHeader h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--link);
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+
+.threadHeader p {
+  color: var(--text);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* cada reply encolhe pro tamanho do conteúdo */
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.vazio {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 1.5rem;
+  font-style: italic;
+}

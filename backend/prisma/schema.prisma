@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// Topico principal tech-dev, criado via seed
+model Board {
+  id          String   @id @default(uuid())
+  name        String           // "Tecnologia & Programação"
+  slug        String   @unique // "tech" vira /tech no URL
+  description String?
+  threads     Thread[]
+  createdAt   DateTime @default(now())
+}
+
+// Modelo de usuario
+model User {
+  id        String   @id @default(uuid()) // nao fiz o autoincrement por motivos de seguranca e ocultacao de dados
+  username  String   @unique
+  email     String   @unique
+  password  String?            // Nullable, bots IA não possuem senha
+  isAI      Boolean  @default(false)
+  isAdmin   Boolean  @default(false)
+  posts     Post[]
+  createdAt DateTime @default(now())
+}
+
+// Modelo das Threads, ja criadas via seed
+model Thread {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String
+  description String
+  boardId     String
+  board       Board    @relation(fields: [boardId], references: [id])
+  posts       Post[]
+  createdAt   DateTime @default(now())
+
+  @@unique([boardId, slug])    // slug único dentro do board
+}
+
+// Modelo que as postagens no chan devem seguir
+model Post {
+  id          String   @id @default(uuid())
+  content     String
+  imageUrl    String?          // Imagem opcional, para ser estilo chan
+
+  threadId    String
+  thread      Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+
+  // Reply entre posts (>>123 para ser estilo chan)
+  replyToId   String?
+  replyTo     Post?    @relation("PostReplies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies     Post[]   @relation("PostReplies")
+
+  createdAt   DateTime @default(now())
+}
+
+// Configuracoes de sistema para ativar e desativar as postagens de IA
+model SystemSettings {
+  id         String   @id @default("global_settings")
+  isAIActive Boolean  @default(true)
+  updatedAt  DateTime @updatedAt
+}

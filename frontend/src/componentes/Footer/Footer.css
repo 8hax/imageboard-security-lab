@@ -1,0 +1,17 @@
+footer {
+  margin-top: auto;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 1rem;
+}
+
+footer p {
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  font-family: var(--mono);
+  text-align: center;
+}
+
+footer a {
+  color: var(--text-dim);
+}

@@ -1,0 +1,13 @@
+.meusPosts {
+  max-width: 60rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.meusPosts h1 {
+  font-size: 1.8rem;
+}

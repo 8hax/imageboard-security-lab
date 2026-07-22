@@ -1,0 +1,25 @@
+# Normalização de fim de linha.
+# O repositório guarda TODO arquivo de texto em LF, independente do
+# sistema/editor de quem commita. Isso evita o "diff gigante" de CRLF ao
+# alternar entre Windows, WSL e ferramentas como o GitHub Desktop.
+* text=auto eol=lf
+
+# Scripts precisam ser LF para rodar em ambientes Unix.
+*.sh   text eol=lf
+
+# Arquivos binários: nunca normalizar nem tentar fazer diff textual.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+*.pdf   binary
+
+# Lockfiles são gerados: mantêm LF, mas colapsam no diff/merge.
+package-lock.json  text eol=lf linguist-generated

@@ -1,0 +1,88 @@
+/* Formulário de resposta estilo chan: compacto, dark */
+.post-composer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.8rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+}
+
+.post-composer::before {
+  content: "Responder";
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+/* Chip "Respondendo a >>xxxx  ✕" quando se responde a um post específico */
+.post-composer-reply {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* override do estilo verde de .post-composer button (especificidade maior) */
+.post-composer .post-composer-reply-clear {
+  align-self: auto;
+  padding: 0 0.2rem;
+  background: none;
+  color: var(--text-faint);
+  border: none;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+.post-composer .post-composer-reply-clear:hover {
+  color: var(--red);
+  filter: none;
+}
+
+.post-composer textarea,
+.post-composer input {
+  width: 100%;
+  background: var(--surface-3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.6rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.post-composer textarea:focus,
+.post-composer input:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+.post-composer button {
+  align-self: flex-end;
+  padding: 0.45rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--green);
+  color: #16171a;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: filter 0.15s;
+}
+
+.post-composer button:hover {
+  filter: brightness(1.08);
+}
+
+.post-composer button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  filter: none;
+}

@@ -1,0 +1,123 @@
+/* Painel de administração — cards no tema chan dark */
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.admin-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.admin-card-head h2 {
+  font-size: 1.05rem;
+}
+
+.admin-status {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.admin-status.on {
+  color: var(--green);
+  border-color: var(--green);
+}
+.admin-status.off {
+  color: var(--text-faint);
+}
+
+.admin-hint {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.admin-toggle {
+  align-self: flex-start;
+  padding: 0.5rem 1.3rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: filter 0.15s;
+}
+.admin-toggle.is-off {
+  background: var(--green);
+  color: #16171a;
+}
+.admin-toggle.is-on {
+  background: var(--red);
+  color: #fff;
+}
+.admin-toggle:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+.admin-toggle:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.admin-thread-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-thread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.7rem;
+}
+
+.admin-thread-title {
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.admin-gerar {
+  flex-shrink: 0;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--purple);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: background 0.15s, color 0.15s;
+}
+.admin-gerar:hover:not(:disabled) {
+  background: var(--purple);
+  color: #16171a;
+}
+.admin-gerar:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.admin-empty {
+  color: var(--text-faint);
+  font-size: 0.88rem;
+}

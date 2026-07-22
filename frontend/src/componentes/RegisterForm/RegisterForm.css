@@ -1,0 +1,71 @@
+.auth-form {
+  max-width: 26rem;
+  width: 100%;
+  margin: 3rem auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.auth-form h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--red);
+  font-weight: 800;
+}
+
+.auth-form .div-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.auth-form label {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  font-family: var(--mono);
+}
+
+.auth-form input {
+  padding: 0.6rem 0.7rem;
+  background: var(--surface-3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+.auth-form button {
+  padding: 0.65rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--green);
+  color: #16171a;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.auth-form button:hover {
+  filter: brightness(1.08);
+}
+
+.auth-alt {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.auth-alt a {
+  color: var(--link);
+}

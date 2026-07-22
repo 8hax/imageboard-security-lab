@@ -1,0 +1,13 @@
+.perfil {
+  max-width: 40rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.perfil h1 {
+  font-size: 1.8rem;
+}

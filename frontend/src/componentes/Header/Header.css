@@ -1,0 +1,61 @@
+/* Barra de topo estilo chan: fina, densa, links entre colchetes */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.header li {
+  display: flex;
+}
+
+.header a,
+.header button {
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  font-size: 0.82rem;
+  font-family: var(--mono);
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+/* colchetes [ ... ] ao redor de cada link, cara de nav de chan */
+.header a::before,
+.header button::before {
+  content: "[";
+  color: var(--text-faint);
+}
+.header a::after,
+.header button::after {
+  content: "]";
+  color: var(--text-faint);
+}
+
+.header a:hover,
+.header button:hover {
+  color: var(--text);
+  background: var(--surface-3);
+  text-decoration: none;
+}
+
+/* link do próprio board em destaque verde */
+.header nav li:first-child a {
+  color: var(--green);
+  font-weight: 700;
+}

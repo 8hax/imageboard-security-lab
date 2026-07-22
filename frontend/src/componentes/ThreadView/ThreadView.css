@@ -1,0 +1,14 @@
+.thread-posts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* cada reply encolhe pro tamanho do conteúdo */
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.thread-vazio {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 1.5rem;
+  font-style: italic;
+}
