@@ -39,18 +39,23 @@ export { router as authRoutes }
 ## Prova de conceito
 
 A primeira tentativa foi com o Hydra, ferramenta conhecida para brute force em endpoints. Ela não se adequou ao caso: o módulo `http-post-form` do Hydra envia os dados no formato `application/x-www-form-urlencoded` e usa `:` como separador de campos, o que conflita com o corpo JSON que a rota /login espera.
+
 No lugar do Hydra, escrevi um script Python com a biblioteca requests, enviando o corpo no formato JSON esperado pelo endpoint. Esse script me permitiu explorar a vulnerabilidade na rota /login e obter acesso a um usuário vítima. Utilizei um dicionário pequeno, criado apenas para fins de teste.
 
-Criação de um usuário vítima
+**Criação de um usuário vítima**
+
 ![Criação da conta-vítima](../screenshots/security-lab/criacaoUser.png)
 
-Validando se o usuário realmente existe
+**Validando se o usuário realmente existe**
+
 ![Validação de que a conta-vítima existe](../screenshots/security-lab/validarUser.png)
 
-Dicionário de senhas criado
+**Dicionário de senhas criado**
+
 ![Dicionário de senhas usado no teste](../screenshots/security-lab/dicionarioSenhas.png)
 
-Script do Brute Force em ação
+**Script do brute force em ação**
+
 ![Script de brute force encontrando a senha](../screenshots/security-lab/scriptBruteForce.png)
 
 ## Impacto
@@ -123,6 +128,9 @@ O rate limiting não é uma solução completa. Ele é apenas uma camada de prot
 
 ## Referências
 
+## Referências
+
 - [OWASP — Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack)
 - [OWASP — Credential Stuffing](https://owasp.org/www-community/attacks/Credential_stuffing)
 - [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+- [OWASP Multifactor Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html)
