@@ -128,8 +128,6 @@ O rate limiting não é uma solução completa. Ele é apenas uma camada de prot
 
 ## Referências
 
-## Referências
-
 - [OWASP — Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack)
 - [OWASP — Credential Stuffing](https://owasp.org/www-community/attacks/Credential_stuffing)
 - [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
