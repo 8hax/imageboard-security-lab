@@ -28,7 +28,7 @@ conceito, análise de impacto e a correção aplicada.
 |---|-----------------|--------------------------|------------|--------|---------|
 | 01 | Ausência de rate limiting (brute force) | A07:2021 – Identification and Authentication Failures | Alta | Corrigido | [ver](docs/writeups/01-rate-limiting.md) |
 | 02 | Ausência de security headers | A05:2021 – Security Misconfiguration | Média | Corrigido | [ver](docs/writeups/02-security-headers.md) |
-| 03 | Enumeração de usuários | A07:2021 – Identification and Authentication Failures | Média | Em andamento | [ver](docs/writeups/03-user-enumeration.md) |
+| 03 | Enumeração de usuários | A07:2021 – Identification and Authentication Failures | Média | Corrigido | [ver](docs/writeups/03-user-enumeration.md) |
 | 04 | Política de senha fraca | A07:2021 – Identification and Authentication Failures | Média | Em andamento | [ver](docs/writeups/04-password-policy.md) |
 | 05 | `imageUrl` sem validação (XSS / SSRF) | A03:2021 – Injection | Alta | Em andamento | [ver](docs/writeups/05-imageurl-xss-ssrf.md) |
 | 06 | CSRF e hardening de cookie | A01:2021 – Broken Access Control | Média | Em andamento | [ver](docs/writeups/06-csrf-cookie-hardening.md) |
@@ -42,7 +42,7 @@ apenas apontar falhas:
 
 - **Senhas armazenadas com hash bcrypt** — nunca em texto puro; o hash é gerado no cadastro e na troca de senha, com fator de custo 10.
 - **Comparação de senha em tempo constante** — o `bcrypt.compare` não faz curto-circuito no primeiro byte divergente, mitigando timing attacks na verificação da senha.
-- **Mensagem genérica na via de login** — o login responde sempre `Dados inválidos`, sem distinguir email inexistente de senha errada, o que dificulta a enumeração de usuários por essa via. (A via de cadastro ainda revela contas existentes — tratada na vulnerabilidade #03.)
+- **Mensagem genérica na via de login** — o login responde sempre `Dados inválidos`, sem distinguir email inexistente de senha errada, o que dificulta a enumeração de usuários por essa via. (A mensagem já era genérica, mas o tempo de resposta não — isso, e a via de cadastro, foram tratados na vulnerabilidade #03.)
 - **JWT em cookie `httpOnly`** — o token não fica acessível via `document.cookie`, o que impede seu roubo por JavaScript em caso de XSS. O cookie também usa `sameSite: 'lax'` e tem expiração alinhada ao `expiresIn` do JWT. (O hardening completo do cookie — flag `secure` e proteção CSRF — é tratado na vulnerabilidade #06.)
 - **Reautenticação em operações sensíveis** — trocar a senha e excluir a conta exigem a senha atual como confirmação, reduzindo o impacto de uma sessão sequestrada.
 - **Contas de bot bloqueadas no login** — usuários marcados como `isAI` não conseguem autenticar pela interface pública, seguindo a recomendação da OWASP de que contas de serviço não devem logar por vias destinadas a humanos.
