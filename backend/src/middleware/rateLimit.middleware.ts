@@ -22,3 +22,15 @@ export const postLimiter = rateLimit({
   legacyHeaders: false,
   message: { error: 'Você está postando rápido demais. Aguarde um momento.' },
 })
+
+// Limite ESTRITO para edição de perfil.
+// Editar dados (username/email) é uma ação rara e deliberada, então uma
+// janela longa com poucas tentativas dificulta a varredura de emails
+// (enumeration) via endpoint de atualização, sem incomodar o uso legítimo.
+export const profileLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,  // 1 hora
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Muitas alterações de perfil. Tente novamente mais tarde.' },
+})

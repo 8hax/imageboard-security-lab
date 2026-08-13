@@ -5,9 +5,20 @@ import bcrypt from 'bcryptjs'
 // Usuário placeholder que "herda" os posts de contas excluídas (anonimização).
 const DELETED_USER_ID = 'deleted_user'
 
+// Hash descartável usado no login quando a conta não existe / é bot / não tem
+// senha. Serve para o bcrypt.compare rodar SEMPRE com o mesmo custo (10),
+// de modo que o tempo de resposta não revele se o email existe — mitiga a
+// enumeração de usuários por timing. É o hash de uma senha aleatória: nenhuma
+// senha informada pelo usuário jamais confere com ele.
+const DUMMY_HASH = bcrypt.hashSync('conta-inexistente-timing-guard', 10)
+
 export class AuthService {
 
   async create(username: string, email: string, password: string) {
+
+    //fazer o hash da password antes para que evite um pouco do timing
+    const passwordHashed = await bcrypt.hash(password, 10)
+
     const isUserCreated = await prisma.user.findFirst({
       where: {
         OR: [{ username }, { email }]
@@ -15,10 +26,8 @@ export class AuthService {
     })
 
     if (isUserCreated) {
-      throw new Error('Username ou email já cadastrado')
+      throw new Error('Não foi possível concluir o cadastro. Verifique os dados e tente novamente')
     }
-
-    const passwordHashed = await bcrypt.hash(password, 10)
 
     const user = await prisma.user.create({
       data: { username, email, password: passwordHashed }
@@ -46,24 +55,23 @@ export class AuthService {
       where: { email }
     })
 
-    // Bloqueia se não encontrou ou se é um bot
-    if (!user || user.isAI) {
+    // Uma conta só é elegível ao login se existe, não é bot e tem senha.
+    const contaValida = !!user && !user.isAI && !!user.password
+
+    // O bcrypt.compare roda SEMPRE, com o mesmo custo: contra a senha real
+    // quando a conta é válida, ou contra um hash descartável caso contrário.
+    // Assim o tempo de resposta não revela se o email existe (anti-enumeração).
+    const hashParaComparar = contaValida ? user!.password! : DUMMY_HASH
+    const senhaMatch = await bcrypt.compare(password, hashParaComparar)
+
+    // Mensagem única para todos os motivos de falha, sem distinguir os casos.
+    if (!contaValida || !senhaMatch) {
       throw new Error('Dados inválidos')
     }
 
-    // Bloqueia se não tem senha (segurança extra)
-    if (!user.password) {
-      throw new Error('Dados inválidos')
-    }
-
-    const senhaMatch = await bcrypt.compare(password, user.password)
-
-    if (!senhaMatch) {
-      throw new Error('Dados inválidos')
-    }
-
+    // Após o guard acima, contaValida é true — logo user não é nulo.
     const token = jwt.sign(
-      { id: user.id, username: user.username, isAdmin: user.isAdmin },
+      { id: user!.id, username: user!.username, isAdmin: user!.isAdmin },
       process.env.JWT_SECRET!,
       { expiresIn: '5h' }
     )
@@ -86,7 +94,7 @@ export class AuthService {
     })
 
     if (conflito) {
-      throw new Error('Username ou email já em uso')
+      throw new Error('Não foi possível atualizar o perfil. Verifique os dados e tente novamente')
     }
 
     return prisma.user.update({
