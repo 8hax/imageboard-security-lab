@@ -146,6 +146,20 @@ export class AuthService {
       throw new Error(erroSenha)
     }
 
+    // A senha nova precisa ser de fato nova: sem isso, a troca de senha aceita
+    // repetir a senha atual e devolve 200. O usuário que trocou a senha porque
+    // desconfiou de vazamento sai da tela achando que rotacionou a credencial
+    // sem ter rotacionado nada.
+    // A comparação é contra o HASH, não contra a currentPassword em texto puro,
+    // porque o bcrypt só lê os 72 primeiros bytes: uma senha antiga longa (de
+    // antes do teto em bytes) e uma nova que só difere depois do byte 72 seriam
+    // strings diferentes e a MESMA senha para o verificador. Quem responde
+    // "mudou?" é o mesmo componente que vai autenticar depois.
+    const senhaRepetida = await bcrypt.compare(newPassword, user.password)
+    if (senhaRepetida) {
+      throw new Error('A nova senha deve ser diferente da senha atual')
+    }
+
     const novaHash = await bcrypt.hash(newPassword, 10)
     await prisma.user.update({
       where: { id: userId },
