@@ -6,12 +6,25 @@ const authService = new AuthService();
 
 // validação
 
-// Regras de senha reaproveitadas no cadastro e na troca de senha.
+// O bcrypt ignora tudo que passa de 72 BYTES, sem avisar. O limite de 64
+// caracteres não garante isso: em UTF-8 um "ç" ocupa 2 bytes e um emoji até 4,
+// então 64 caracteres acentuados dão 106+ bytes e o final da senha é descartado
+// em silêncio: duas senhas diferentes com os mesmos 72 primeiros bytes passam
+// a abrir a mesma conta. Por isso o teto real é medido em bytes, não em chars.
+const LIMITE_BYTES_BCRYPT = 72
+
+const cabeNoBcrypt = (senha: string) =>
+  new TextEncoder().encode(senha).length <= LIMITE_BYTES_BCRYPT
+
+// Política de senha alinhada ao NIST SP 800-63B-4 (seção 3.1.1.2):
+// prioriza comprimento sobre complexidade. Sem regras de composição
+// obrigatória (proibidas pelo padrão: "SHALL NOT impose other composition
+// rules"). A blocklist de senhas comuns e a checagem contextual ficam no
+// service, pois exigem contexto (a lista carregada, o username e o email).
 const passwordRules = z.string()
-  .min(5, 'Senha deve ter no mínimo 5 caracteres')
-  .regex(/[A-Z]/, 'Senha deve ter pelo menos 1 letra maiúscula')
-  .regex(/[0-9]/, 'Senha deve ter pelo menos 1 número')
-  .regex(/[^a-zA-Z0-9]/, 'Senha deve ter pelo menos 1 caractere especial');
+  .min(15, 'A senha deve ter no mínimo 15 caracteres')
+  .max(64, 'A senha deve ter no máximo 64 caracteres')
+  .refine(cabeNoBcrypt, 'A senha é longa demais. Acentos e emojis ocupam espaço extra. Use menos caracteres.')
 
 const createSchema = z.object({
   username: z.string().min(3, 'Username deve ter no mínimo 3 caracteres'),
