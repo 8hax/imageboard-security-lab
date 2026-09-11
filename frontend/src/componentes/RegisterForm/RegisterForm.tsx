@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import "@/componentes/RegisterForm/RegisterForm.css";
+import { TEXTO_POLITICA_SENHA } from "@/schemas/password.schema";
 import { registerSchema } from "@/schemas/register.schema";
 import { register } from "@/services/auth.services";
 
@@ -64,7 +65,11 @@ export default function RegisterForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Senha"
                     aria-label="Senha"
+                    aria-describedby="senha-politica"
                 />
+                <p id="senha-politica" className="auth-politica">
+                    {TEXTO_POLITICA_SENHA}
+                </p>
             </div>
 
             <div className="div-input">

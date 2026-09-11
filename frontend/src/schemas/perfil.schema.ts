@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { passwordRules } from "@/schemas/password.schema";
 
 // Espelham os schemas do backend (auth.controller): editar perfil, trocar senha, excluir conta.
 
@@ -9,11 +10,7 @@ export const updateProfileSchema = z.object({
 
 export const changePasswordSchema = z.object({
     currentPassword: z.string().min(1, "Senha atual obrigatória"),
-    newPassword: z.string()
-        .min(5, "Senha deve ter no mínimo 5 caracteres")
-        .regex(/[A-Z]/, "Senha deve ter pelo menos 1 letra maiúscula")
-        .regex(/[0-9]/, "Senha deve ter pelo menos 1 número")
-        .regex(/[^a-zA-Z0-9]/, "Senha deve ter pelo menos 1 caractere especial"),
+    newPassword: passwordRules,
 });
 
 export const deleteAccountSchema = z.object({

@@ -9,6 +9,7 @@ import {
     changePasswordSchema,
     deleteAccountSchema,
 } from "@/schemas/perfil.schema";
+import { TEXTO_POLITICA_SENHA } from "@/schemas/password.schema";
 import {
     updateProfile,
     changePassword,
@@ -167,10 +168,11 @@ export default function PerfilForm({ me }: PerfilFormProps) {
                             onChange={(e) => setNewPassword(e.target.value)}
                             placeholder="Nova senha"
                             aria-label="Nova senha"
+                            aria-describedby="nova-senha-politica"
                         />
                     </label>
-                    <p className="perfil-hint">
-                        Mínimo 5 caracteres, com 1 maiúscula, 1 número e 1 caractere especial.
+                    <p id="nova-senha-politica" className="perfil-hint">
+                        {TEXTO_POLITICA_SENHA}
                     </p>
                     <button type="submit" disabled={salvandoSenha}>
                         {salvandoSenha ? "Salvando..." : "Alterar senha"}
