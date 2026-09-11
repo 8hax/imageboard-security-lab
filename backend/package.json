@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon --exec tsx src/server.ts",
-    "build": "tsc",
+    "build": "tsc && mkdir -p dist/data && cp -r src/data/. dist/data/",
     "start": "node dist/server.js",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio"

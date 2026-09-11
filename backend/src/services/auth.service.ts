@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import prisma from '../lib/prisma'
 import bcrypt from 'bcryptjs'
+import { validarSenhaContextual } from '../utils/passwordBlocklist'
 
 // Usuário placeholder que "herda" os posts de contas excluídas (anonimização).
 const DELETED_USER_ID = 'deleted_user'
@@ -15,6 +16,16 @@ const DUMMY_HASH = bcrypt.hashSync('conta-inexistente-timing-guard', 10)
 export class AuthService {
 
   async create(username: string, email: string, password: string) {
+
+    // Validação contextual da senha (blocklist + username, email e nome do
+    // site). Feita aqui no service, e não no schema Zod, porque depende dos
+    // dados do usuário e da blocklist carregada em memória, contexto que o
+    // schema não tem. Roda ANTES do hash para não gastar o custo do bcrypt em
+    // uma senha que já será rejeitada.
+    const erroSenha = validarSenhaContextual(password, username, email)
+    if (erroSenha) {
+      throw new Error(erroSenha)
+    }
 
     //fazer o hash da password antes para que evite um pouco do timing
     const passwordHashed = await bcrypt.hash(password, 10)
@@ -125,6 +136,14 @@ export class AuthService {
     const confere = await bcrypt.compare(currentPassword, user.password)
     if (!confere) {
       throw new Error('Senha atual incorreta')
+    }
+
+    // Mesma política do cadastro: a senha nova também passa pela blocklist e
+    // pelo bloqueio contextual, senão dava para trocar uma senha forte por uma
+    // senha comum. O username e o email vêm do usuário já carregado acima.
+    const erroSenha = validarSenhaContextual(newPassword, user.username, user.email)
+    if (erroSenha) {
+      throw new Error(erroSenha)
     }
 
     const novaHash = await bcrypt.hash(newPassword, 10)
