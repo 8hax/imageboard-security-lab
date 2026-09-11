@@ -29,7 +29,7 @@ conceito, análise de impacto e a correção aplicada.
 | 01 | Ausência de rate limiting (brute force) | A07:2021 – Identification and Authentication Failures | Alta | Corrigido | [ver](docs/writeups/01-rate-limiting.md) |
 | 02 | Ausência de security headers | A05:2021 – Security Misconfiguration | Média | Corrigido | [ver](docs/writeups/02-security-headers.md) |
 | 03 | Enumeração de usuários | A07:2021 – Identification and Authentication Failures | Média | Corrigido | [ver](docs/writeups/03-user-enumeration.md) |
-| 04 | Política de senha fraca | A07:2021 – Identification and Authentication Failures | Média | Em andamento | [ver](docs/writeups/04-password-policy.md) |
+| 04 | Política de senha fraca | A07:2021 – Identification and Authentication Failures | Média | Corrigido | [ver](docs/writeups/04-password-policy.md) |
 | 05 | `imageUrl` sem validação (XSS / SSRF) | A03:2021 – Injection | Alta | Em andamento | [ver](docs/writeups/05-imageurl-xss-ssrf.md) |
 | 06 | CSRF e hardening de cookie | A01:2021 – Broken Access Control | Média | Em andamento | [ver](docs/writeups/06-csrf-cookie-hardening.md) |
 
