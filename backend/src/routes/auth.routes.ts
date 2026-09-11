@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { AuthController } from '../controllers/auth.controller'
 import { authMiddleware } from '../middleware/auth.middleware'
-import { authLimiter, profileLimiter } from '../middleware/rateLimit.middleware'
+import { authLimiter, passwordLimiter, profileLimiter } from '../middleware/rateLimit.middleware'
 
 
 const authController = new AuthController()
@@ -14,7 +14,10 @@ router.get('/me', authMiddleware, (req, res) => authController.me(req, res))
 
 // CRUD do próprio usuário (logado)
 router.patch('/me', authMiddleware, profileLimiter, (req, res) => authController.updateProfile(req, res))
-router.patch('/me/password', authMiddleware, (req, res) => authController.changePassword(req, res))
-router.delete('/me', authMiddleware, (req, res) => authController.deleteAccount(req, res))
+// As duas rotas abaixo conferem a senha atual com bcrypt.compare, então
+// compartilham o mesmo limitador: as tentativas somam entre elas, senão daria
+// para alternar entre os dois endpoints e dobrar o orçamento de chutes.
+router.patch('/me/password', authMiddleware, passwordLimiter, (req, res) => authController.changePassword(req, res))
+router.delete('/me', authMiddleware, passwordLimiter, (req, res) => authController.deleteAccount(req, res))
 
 export { router as authRoutes }

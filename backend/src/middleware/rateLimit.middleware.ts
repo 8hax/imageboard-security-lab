@@ -23,6 +23,22 @@ export const postLimiter = rateLimit({
   message: { error: 'Você está postando rápido demais. Aguarde um momento.' },
 })
 
+// Limite ESTRITO para as ações que exigem confirmar a senha ATUAL
+// (trocar senha e excluir conta).
+// Objetivo: esses endpoints rodam bcrypt.compare contra a senha do usuário, ou
+// seja, respondem "essa senha está certa?". São um oráculo de senha para quem
+// já tem a sessão (cookie roubado via XSS, máquina compartilhada, sessão
+// esquecida aberta). Sem limite, dá para forçar a senha atual à vontade por
+// trás do authMiddleware. Trocar senha e excluir conta são ações raras, então
+// 5 tentativas por hora não incomodam o uso legítimo.
+export const passwordLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,  // 1 hora
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Muitas tentativas. Tente novamente mais tarde.' },
+})
+
 // Limite ESTRITO para edição de perfil.
 // Editar dados (username/email) é uma ação rara e deliberada, então uma
 // janela longa com poucas tentativas dificulta a varredura de emails
